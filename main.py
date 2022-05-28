@@ -2,6 +2,8 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import numpy as np
+
 
 def forward_sub(L,b):
     L = np.copy(L)
@@ -34,27 +36,20 @@ def sigma_solver(s,UTb):
     return y
 
 if __name__ == '__main__':
-    import numpy as np
 
-    b = np.array([6.0, 1, 5, 2])
-    A = np.array([[2.0, 1, 2], [1, -2, 1], [1, 2, 3], [1, 1, 1]])
-    ATB = A.transpose() @ b
-    Q, R = np.linalg.qr(A)
-    y = forward_sub(R.transpose(), ATB)
-    x_qr = backward_sub(R, y)
-    print(f'The vector that we found using qr factorization is x={x_qr}')
-    u, s, vt = np.linalg.svd(A, full_matrices=True)
-    # follow the equation : s@vt@x = u^t @ b
-    s = np.diag(s)
-    st = np.vstack((s, [0, 0, 0]))
-    # y = forward_sub(st, u.transpose() @ b)
-    y = sigma_solver(s,u.transpose() @ b)
-    x_svd = vt.transpose() @ y
-    print(f'The vector that we found using svd decomposition??? is x={x_svd}')
-
-    W = np.diag([100, 1, 1, 1])
-    ATWA = A.transpose() @ W @ A
-    x_wighted = np.linalg.inv(ATWA) @ A.transpose() @ W @ b
-    print(A @ x_svd - b)
-    print(A @ x_wighted - b)
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+  for i in range(3):
+      print(i)
+  a = np.array([1,2,3,4,5])
+  c = a[:3]
+  print(c)
+  b = a
+  b[2] = 5
+  print(a)
+  print(b)
+  print('**********')
+  a = np.array([1,2,3])
+  b = np.array(a)
+  b[2] = 5
+  print(a)
+  print(b)
+#  See PyCharm help at https://www.jetbrains.com/help/pycharm/
